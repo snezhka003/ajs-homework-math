@@ -1,8 +1,8 @@
 export default class MathCharacter {
-  constructor(name, attack, dope, distance) {
+  constructor(name, attack, stoned, distance) {
     this.name = name;
     this.attack = attack;
-    this.dope = dope;
+    this.stoned = stoned;
     this.distance = distance;
   }
 
@@ -10,32 +10,28 @@ export default class MathCharacter {
     return this.dope;
   }
 
-  set stoned(value) {
-    this.dope = value;
+  set stoned(stoned) {
+    this.dope = stoned;
   }
 
-  set attack(value) {
-    this.attackValue = value;
+  set attack(attack) {
+    this.attackValue = attack;
   }
 
   get attack() {
-    let attack = this.attackValue * (1 - (this.distance - 1) / 10);
+    let newAttack = this.attackValue * (1 - (this.distance - 1) / 10);
 
     if (this.stoned) {
-      attack -= Math.log2(this.distance) * 5;
+      newAttack -= Math.log2(this.distance) * 5;
     }
 
-    return attack > 0 ? Math.round(attack) : 0;
-
-    // не могу никак понять, почему условие выше отрабатывает, а эти условия полностью игнорируются.
-    // Пожалуйста, объясните что не так.
-    /* if (attack > 0 || attack < 101) {
-      attack = Math.floor(attack);
-    } else if (attack >= 100) {
-      attack = 100;
-    } else if (attack <= 0) {
-      attack = 0;
+    if (newAttack > 100) {
+      newAttack = 100;
+    } else if (newAttack > 0) {
+      newAttack = Math.round(newAttack);
+    } else {
+      newAttack = 0;
     }
-    return attack; */
+    return newAttack;
   }
 }

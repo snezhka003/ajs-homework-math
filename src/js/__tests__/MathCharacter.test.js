@@ -12,7 +12,11 @@ test('Тест падения атаки с "дурманом"', () => {
 });
 
 test('get attack возвращает корректное значение при attack < 0', () => {
-  const magician = new MathCharacter('Magician', 100, false, 2);
-  magician.attackValue = -20;
+  const magician = new MathCharacter('Magician', -20, false, 2);
   expect(magician.attack).toBe(0);
+});
+
+test('get attack возвращает корректное значение при attack > 100', () => {
+  const daemon = new MathCharacter('Daemon', 200, true, 3);
+  expect(daemon.attack).toBe(100);
 });
